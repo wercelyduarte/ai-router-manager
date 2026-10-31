@@ -35,7 +35,7 @@ Requer Node.js para instalar o 9Router.
 
 **Termos de pesquisa** (até 7)
 
-9router · claude code · token saver · ai gateway · ai router · llm proxy · economizar tokens
+token saver · ai gateway · ai router · llm proxy · economizar tokens · gateway ia · roteador ia
 
 **Notas de direitos autorais:** © 2026 WD Software
 
@@ -72,7 +72,7 @@ Requires Node.js to install 9Router.
 
 **Search terms** (up to 7)
 
-9router · claude code · token saver · ai gateway · ai router · llm proxy · save tokens
+token saver · ai gateway · ai router · llm proxy · save tokens · llm router · ai proxy
 
 **Copyright:** © 2026 WD Software
 
