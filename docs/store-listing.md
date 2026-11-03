@@ -84,4 +84,4 @@ token saver · ai gateway · ai router · llm proxy · save tokens · llm router
 
 **unvirtualizedResources**
 
-> The app installs developer CLI tools with "npm install -g" (9Router, Caveman) into %APPDATA%\npm. Those commands must work from the user's own terminal and from Claude Code hooks, outside the package. With AppData write virtualization they would land in the package's private storage, invisible to other programs, so the manifest disables FileSystemWriteVirtualization. The app only writes to the current user's AppData and profile folders.
+> Needed so the developer tools the app installs work outside the package. On the user's request it runs "npm install -g 9router" and starts the 9Router gateway, which write to %APPDATA%\npm and %APPDATA%\9router. The user's own terminal and Claude Code must run them; virtualized, they would be invisible to other programs. Only the current user's folders are written. Website: https://github.com/wercelyduarte/ai-router-manager Support: https://github.com/wercelyduarte/ai-router-manager/issues
