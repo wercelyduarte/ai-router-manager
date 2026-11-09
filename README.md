@@ -74,6 +74,8 @@ Click **Abrir Dashboard** (Open Dashboard) → **Providers**. The quickest free 
 
 9Router also has built-in saving modes (Caveman, Headroom). See and change them with the **Token Saver** button.
 
+> **Microsoft Store version:** it installs 9Router into `%USERPROFILE%\.ai-router-manager\npm`, not into npm's default folder, because the Store does not let the app write outside its own copy of `%APPDATA%`. The `9router` command is therefore not on your terminal's PATH; the app starts it for you.
+
 ### 6. Turning it off
 - To stop using 9Router in a tool: **Ferramentas → Remover / Remove** on that tool, then restart the tool. Its original configuration is restored.
 - **Remove the tool first, then stop 9Router.** If a tool is still connected while 9Router is stopped, its requests will fail.

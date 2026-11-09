@@ -27,21 +27,19 @@ BUILD   = ROOT / "build" / "AIRouterManager"
 STAGE   = ROOT / "build" / "msix"
 LOGOS   = {"Square44x44Logo.png": 44, "Square150x150Logo.png": 150, "StoreLogo.png": 50}
 
-# The app installs npm packages globally (9Router, Caveman) whose paths end up in the user's
-# terminal and in ~/.claude hooks. With the default AppData write virtualization those files
-# would land in a private copy that no program outside the package sees.
+# Only runFullTrust is declared: the Store denied unvirtualizedResources (policy 10.6.3). Writes under
+# %APPDATA% are therefore virtualized, so the app keeps what must be visible outside the package
+# (the npm global folder) in the user's profile folder instead; see NPM_PREFIX in app.py.
 MANIFEST = """<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-         xmlns:desktop6="http://schemas.microsoft.com/appx/manifest/desktop/windows10/6"
          xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-         IgnorableNamespaces="uap desktop6 rescap">
+         IgnorableNamespaces="uap rescap">
   <Identity Name="{name}" Publisher="{publisher}" Version="{version}" ProcessorArchitecture="x64" />
   <Properties>
     <DisplayName>{display}</DisplayName>
     <PublisherDisplayName>{publisher_name}</PublisherDisplayName>
     <Logo>Assets\\StoreLogo.png</Logo>
-    <desktop6:FileSystemWriteVirtualization>disabled</desktop6:FileSystemWriteVirtualization>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26100.0" />
@@ -58,7 +56,6 @@ MANIFEST = """<?xml version="1.0" encoding="utf-8"?>
   </Applications>
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
-    <rescap:Capability Name="unvirtualizedResources" />
   </Capabilities>
 </Package>
 """

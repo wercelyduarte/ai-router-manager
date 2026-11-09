@@ -76,12 +76,10 @@ token saver · ai gateway · ai router · llm proxy · save tokens · llm router
 
 **Copyright:** © 2026 WD Software
 
-## Restricted capability justifications (Opções de envio, 500 characters each)
+## Restricted capability justification (Opções de envio, 500 characters)
 
 **runFullTrust**
 
 > AI Router Manager is a Win32 desktop app (Python, Desktop Bridge). It needs full trust to start and stop local processes: the 9Router gateway (Node.js) on localhost:20128, npm to install and update 9Router, and optional token-saving tools (Headroom, Caveman). It also edits AI coding tool settings in the user's profile (e.g. ~/.claude/settings.json) so they use the local gateway. None of this works inside the AppContainer sandbox.
 
-**unvirtualizedResources**
-
-> Needed so the developer tools the app installs work outside the package. On the user's request it runs "npm install -g 9router" and starts the 9Router gateway, which write to %APPDATA%\npm and %APPDATA%\9router. The user's own terminal and Claude Code must run them; virtualized, they would be invisible to other programs. Only the current user's folders are written. Website: https://github.com/wercelyduarte/ai-router-manager Support: https://github.com/wercelyduarte/ai-router-manager/issues
+Only `runFullTrust` is declared. `unvirtualizedResources` was denied twice (policy 10.6.3), so the package no longer asks for it.

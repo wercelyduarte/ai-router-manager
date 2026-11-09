@@ -8,6 +8,7 @@ import subprocess
 import threading
 import os
 import sys
+import ctypes
 import json
 import sqlite3
 import winreg
@@ -55,6 +56,23 @@ CAVEMAN_PORT    = 8788
 CAVEMAN_REPORT  = Path.home() / ".caveman" / "reports" / "caveman-stats.html"
 CAVEMAN_INSTALL = "npx -y @caveman-ai/cli@latest"
 CAVEMAN_UNINSTALL = "npx -y github:JuliusBrussee/caveman -- --uninstall && npm uninstall -g @caveman-ai/cli"
+
+
+def is_packaged() -> bool:
+    """True inside the Microsoft Store (MSIX) package. 15700 is APPMODEL_ERROR_NO_PACKAGE."""
+    size = ctypes.c_uint32(0)
+    return ctypes.windll.kernel32.GetCurrentPackageFullName(ctypes.byref(size), None) != 15700
+
+
+# Inside the package, writes under %APPDATA% go to a private copy that no program outside it sees,
+# so npm's default global folder, under APPDATA, would hide 9Router and Caveman from everything else.
+# The package keeps them in a profile folder, which is not redirected; children inherit this.
+NPM_PREFIX      = Path.home() / ".ai-router-manager" / "npm"
+if is_packaged():
+    NPM_PREFIX.mkdir(parents=True, exist_ok=True)
+    os.environ["npm_config_prefix"] = str(NPM_PREFIX)
+    os.environ["PATH"] = f"{NPM_PREFIX}{os.pathsep}{os.environ.get('PATH', '')}"
+
 # (light, dark) pairs. Light mode follows VozComanda's palette; dark keeps customtkinter's "blue" theme.
 SELECTED        = ("#bfdbfe", "#1f538d")
 HOVER           = ("#e5e7eb", "gray25")
